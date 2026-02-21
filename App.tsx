@@ -33,6 +33,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { COUNTRIES } from './constants';
 import { TRANSLATIONS, LANGUAGES } from './i18n';
 import { Country, RecentContact, Locale } from './types';
+import BusinessQrGenerator from './BusinessQrGenerator';
 
 // Animation Variants
 const fadeInUp = {
@@ -156,13 +157,13 @@ const App: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
         {/* Form Area */}
         <motion.div variants={fadeInUp} className="lg:col-span-8 space-y-8">
-          <div className="glass p-8 md:p-12 rounded-[2.5rem] shadow-2xl border-white/50 dark:border-white/10 overflow-hidden relative group">
+          <div className="glass p-8 md:p-12 rounded-[2.5rem] shadow-2xl border-white/50 overflow-hidden relative group">
             <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none">
               <Send size={160} className="rotate-12" />
             </div>
 
             <h1 className="text-3xl md:text-5xl font-black mb-4 leading-tight tracking-tight relative">{t.heroTitle}</h1>
-            <p className="text-lg md:text-xl text-slate-800 dark:text-slate-400 mb-10 max-w-2xl relative">{t.heroSubtitle}</p>
+            <p className="text-lg md:text-xl text-slate-800 mb-10 max-w-2xl relative">{t.heroSubtitle}</p>
 
             <div className="space-y-8 relative">
               <div className="relative">
@@ -172,7 +173,7 @@ const App: React.FC = () => {
                     <motion.button
                       whileTap={{ scale: 0.98 }}
                       onClick={() => setIsCountryOpen(!isCountryOpen)}
-                      className="w-full flex items-center gap-2 px-6 py-5 rounded-[1.5rem] bg-black/5 dark:bg-white/5 border-2 border-slate-200 dark:border-slate-800 hover:border-[#25D366] dark:hover:border-[#25D366] transition-all justify-between text-lg font-bold"
+                      className="w-full flex items-center gap-2 px-6 py-5 rounded-[1.5rem] bg-black/5 border-2 border-slate-200 hover:border-[#25D366] transition-all justify-between text-lg font-bold"
                     >
                       <div className="flex items-center gap-3">
                         <img src={`https://flagcdn.com/w40/${selectedCountry.code.toLowerCase()}.png`} alt={selectedCountry.code} className="w-8 h-5 rounded-sm object-cover shadow-sm" />
@@ -188,14 +189,14 @@ const App: React.FC = () => {
                           initial={{ opacity: 0, scale: 0.95, y: 10, filter: 'blur(10px)' }}
                           animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
                           exit={{ opacity: 0, scale: 0.95, y: 10, filter: 'blur(10px)' }}
-                          className="absolute top-full left-0 mt-3 w-80 glass rounded-[2rem] shadow-3xl overflow-hidden z-[60] py-3 border border-black/10 dark:border-white/10"
+                          className="absolute top-full left-0 mt-3 w-80 glass rounded-[2rem] shadow-3xl overflow-hidden z-[60] py-3 border border-black/10"
                         >
                           <div className="max-h-80 overflow-y-auto custom-scrollbar">
                             {COUNTRIES.map(country => (
                               <button
                                 key={country.code}
                                 onClick={() => { setSelectedCountry(country); setIsCountryOpen(false); }}
-                                className="w-full flex items-center gap-4 px-6 py-3.5 hover:bg-[#25D366]/10 dark:hover:bg-[#25D366]/10 transition-colors text-left"
+                                className="w-full flex items-center gap-4 px-6 py-3.5 hover:bg-[#25D366]/10 transition-colors text-left"
                               >
                                 <img src={`https://flagcdn.com/w40/${country.code.toLowerCase()}.png`} alt={country.code} className="w-7 h-4 rounded-sm object-cover shadow-sm" />
                                 <span className="w-8 text-[11px] font-black text-slate-600 uppercase tracking-tighter">{country.code}</span>
@@ -214,7 +215,7 @@ const App: React.FC = () => {
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(formatPhoneInput(e.target.value))}
                     placeholder={t.placeholderPhone}
-                    className="flex-grow px-8 py-5 rounded-[1.5rem] bg-black/5 dark:bg-white/5 border-2 border-slate-200 dark:border-slate-800 focus:border-[#25D366] dark:focus:border-[#25D366] focus:ring-8 focus:ring-green-500/5 transition-all text-xl font-bold outline-none placeholder:text-slate-300 dark:placeholder:text-slate-600"
+                    className="flex-grow px-8 py-5 rounded-[1.5rem] bg-black/5 border-2 border-slate-200 focus:border-[#25D366] focus:ring-8 focus:ring-green-500/5 transition-all text-xl font-bold outline-none placeholder:text-slate-300"
                   />
                 </div>
               </div>
@@ -228,9 +229,9 @@ const App: React.FC = () => {
                     placeholder={t.placeholderMessage}
                     rows={5}
                     maxLength={1000}
-                    className="w-full px-8 py-6 rounded-[1.5rem] bg-black/5 dark:bg-white/5 border-2 border-slate-200 dark:border-slate-800 focus:border-[#25D366] dark:focus:border-[#25D366] focus:ring-8 focus:ring-green-500/5 transition-all text-lg font-medium outline-none resize-none placeholder:text-slate-300 dark:placeholder:text-slate-600 leading-relaxed"
+                    className="w-full px-8 py-6 rounded-[1.5rem] bg-black/5 border-2 border-slate-200 focus:border-[#25D366] focus:ring-8 focus:ring-green-500/5 transition-all text-lg font-medium outline-none resize-none placeholder:text-slate-300 leading-relaxed"
                   />
-                  <div className="absolute bottom-6 right-6 text-sm text-slate-700 font-bold bg-white/70 dark:bg-black/70 px-3 py-1.5 rounded-xl backdrop-blur-md">
+                  <div className="absolute bottom-6 right-6 text-sm text-slate-700 font-bold bg-white/70 px-3 py-1.5 rounded-xl backdrop-blur-md">
                     {message.length} / 1000
                   </div>
                 </div>
@@ -242,7 +243,7 @@ const App: React.FC = () => {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => setMessage(tmpl)}
-                      className="text-sm px-5 py-2.5 rounded-full border-2 border-black/5 dark:border-white/10 hover:border-[#25D366] hover:bg-[#25D366]/5 dark:hover:bg-[#25D366]/10 transition-all font-bold whitespace-nowrap"
+                      className="text-sm px-5 py-2.5 rounded-full border-2 border-black/5 hover:border-[#25D366] hover:bg-[#25D366]/5 transition-all font-bold whitespace-nowrap"
                     >
                       {tmpl}
                     </motion.button>
@@ -266,7 +267,7 @@ const App: React.FC = () => {
                   whileTap={{ scale: 0.98 }}
                   onClick={handleCopyLink}
                   disabled={!phoneNumber}
-                  className="sm:w-1/3 py-6 px-8 border-2 border-slate-200 dark:border-white/10 text-[#25D366] hover:text-[#128C7E] rounded-[1.5rem] font-black flex items-center justify-center gap-3 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed text-lg"
+                  className="sm:w-1/3 py-6 px-8 border-2 border-slate-200 text-[#25D366] hover:text-[#128C7E] rounded-[1.5rem] font-black flex items-center justify-center gap-3 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed text-lg"
                 >
                   {copyStatus ? <><Check size={24} strokeWidth={3} /> {t.btnCopied}</> : <><Copy size={24} strokeWidth={3} /> {t.btnCopy}</>}
                 </motion.button>
@@ -293,7 +294,7 @@ const App: React.FC = () => {
               <p className="text-sm font-medium text-slate-700">{t.sidebarQRDesc}</p>
             </div>
 
-            <div className="bg-white p-5 rounded-3xl shadow-inner inline-block border-8 border-slate-50 dark:border-slate-800/50">
+            <div className="bg-white p-5 rounded-3xl shadow-inner inline-block border-8 border-slate-50">
               <AnimatePresence mode="wait">
                 {phoneNumber ? (
                   <motion.img
@@ -306,14 +307,14 @@ const App: React.FC = () => {
                     className="w-40 h-40 md:w-48 md:h-48"
                   />
                 ) : (
-                  <motion.div key="empty" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="w-40 h-40 md:w-48 md:h-48 bg-slate-100 dark:bg-slate-900/50 flex flex-col items-center justify-center gap-3 text-slate-300">
+                  <motion.div key="empty" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="w-40 h-40 md:w-48 md:h-48 bg-slate-100 flex flex-col items-center justify-center gap-3 text-slate-300">
                     <QrCode size={48} />
                     <span className="text-xs uppercase tracking-[0.2em] font-black">{t.qrInputNumber}</span>
                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
-            <p className="text-sm font-bold text-slate-900 dark:text-slate-100 px-4">{t.qrMarketingNote}</p>
+            <p className="text-sm font-bold text-slate-900 px-4">{t.qrMarketingNote}</p>
             <button onClick={() => phoneNumber && window.open(`https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=${encodeURIComponent(waLink)}`, '_blank')} disabled={!phoneNumber} className="text-sm font-black text-[#25D366] hover:underline disabled:opacity-30">
               {t.qrDownload}
             </button>
@@ -337,7 +338,7 @@ const App: React.FC = () => {
                       key={contact.id}
                       variants={itemReveal}
                       initial="initial" animate="animate" exit={{ opacity: 0, x: 20 }}
-                      className="group flex items-center justify-between p-4 bg-black/5 dark:bg-white/5 rounded-2xl border-2 border-transparent hover:border-[#25D366]/30 transition-all cursor-pointer"
+                      className="group flex items-center justify-between p-4 bg-black/5 rounded-2xl border-2 border-transparent hover:border-[#25D366]/30 transition-all cursor-pointer"
                       onClick={() => {
                         const parts = contact.number.split(' ');
                         const dCode = parts[0].replace('+', '');
@@ -357,7 +358,7 @@ const App: React.FC = () => {
                 </motion.div>
               ) : (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col items-center justify-center py-12 text-center">
-                  <UserPlus size={40} className="text-slate-200 dark:text-slate-800 mb-4" />
+                  <UserPlus size={40} className="text-slate-200 mb-4" />
                   <p className="text-sm text-slate-600 font-medium px-6">{t.sidebarRecentEmpty}</p>
                 </motion.div>
               )}
@@ -374,7 +375,7 @@ const App: React.FC = () => {
         </div>
       </SectionWrapper>
 
-      <section className="mt-28 bg-black/5 dark:bg-white/5 p-12 md:p-20 rounded-[3.5rem] border border-black/5 dark:border-white/5">
+      <section className="mt-28 bg-black/5 p-12 md:p-20 rounded-[3.5rem] border border-black/5">
         <h2 className="text-4xl font-black text-center mb-16 tracking-tight">Why Choose Circlebunch?</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
           <WhyItem icon={<ZapOff />} title="No Junk Contacts" desc="Keep your phone book for friends and family, not one-time delivery calls." />
@@ -454,11 +455,11 @@ const App: React.FC = () => {
       <h1 className="text-5xl font-black tracking-tight">About Circlebunch</h1>
       <p className="text-2xl text-slate-800 leading-relaxed max-w-2xl mx-auto">We believe that starting a conversation shouldn't require a permanent commitment to your contact list.</p>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
-        <motion.div whileHover={{ scale: 1.02 }} className="p-8 bg-black/5 dark:bg-white/5 rounded-[2rem] space-y-4">
+        <motion.div whileHover={{ scale: 1.02 }} className="p-8 bg-black/5 rounded-[2rem] space-y-4">
           <h3 className="text-xl font-bold">The Problem</h3>
           <p className="text-slate-700">Our phone books are filled with temporary contacts. This clutter makes it harder to find the people who actually matter.</p>
         </motion.div>
-        <motion.div whileHover={{ scale: 1.02 }} className="p-8 bg-black/5 dark:bg-white/5 rounded-[2rem] space-y-4">
+        <motion.div whileHover={{ scale: 1.02 }} className="p-8 bg-black/5 rounded-[2rem] space-y-4">
           <h3 className="text-xl font-bold">The Solution</h3>
           <p className="text-slate-700">Circlebunch provides a premium gateway to WhatsApp direct messaging. No registration, no clutter.</p>
         </motion.div>
@@ -521,6 +522,19 @@ const App: React.FC = () => {
             <span className="text-2xl font-extrabold tracking-tight">{t.navTitle}</span>
           </motion.button>
 
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setCurrentPage('business-qr-generator')}
+            className={`flex items-center gap-2 px-5 py-2.5 rounded-2xl font-bold text-sm transition-all ${
+              currentPage === 'business-qr-generator'
+                ? 'bg-emerald-500/10 text-emerald-600'
+                : 'hover:bg-black/5 text-slate-600 hover:text-emerald-600'
+            }`}
+          >
+            <QrCode size={18} />
+            <span className="hidden sm:inline">Business QR Generator</span>
+          </motion.button>
 
         </div>
       </nav>
@@ -532,6 +546,7 @@ const App: React.FC = () => {
           {currentPage === 'terms' && renderTerms()}
           {currentPage === 'about' && renderAbout()}
           {currentPage === 'contact' && renderContact()}
+          {currentPage === 'business-qr-generator' && <BusinessQrGenerator onNavigateHome={() => setCurrentPage('home')} />}
         </AnimatePresence>
       </main>
 
@@ -563,7 +578,7 @@ const App: React.FC = () => {
             <FooterCol title="Tools" links={[{ label: 'WA Direct', action: () => setCurrentPage('home') }, { label: 'WhatsApp Web', url: 'https://wa.me' }]} />
           </div>
 
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-12 border-t border-black/5 dark:border-white/5 text-slate-600 text-sm font-bold">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-12 border-t border-black/5 text-slate-600 text-sm font-bold">
             <div className="flex items-center gap-1">
               {t.footerMadeWith} <span className="text-red-500">❤️</span> by{' '}
               <a
@@ -588,7 +603,7 @@ const App: React.FC = () => {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="mb-6 w-64 glass rounded-[2rem] shadow-3xl overflow-hidden py-3 border-2 border-white dark:border-white/10"
+              className="mb-6 w-64 glass rounded-[2rem] shadow-3xl overflow-hidden py-3 border-2 border-white"
             >
               {LANGUAGES.map(lang => (
                 <button
@@ -611,10 +626,10 @@ const App: React.FC = () => {
           whileHover={{ scale: 1.1, rotate: 5 }}
           whileTap={{ scale: 0.9 }}
           onClick={() => setIsLanguageOpen(!isLanguageOpen)}
-          className="w-20 h-20 rounded-[1.75rem] bg-indigo-600 hover:bg-indigo-700 text-white flex items-center justify-center shadow-3xl shadow-indigo-500/40 border-4 border-white dark:border-slate-900 transition-all relative"
+          className="w-20 h-20 rounded-[1.75rem] bg-indigo-600 hover:bg-indigo-700 text-white flex items-center justify-center shadow-3xl shadow-indigo-500/40 border-4 border-white transition-all relative"
         >
           {isLanguageOpen ? <Check size={36} strokeWidth={3} /> : <Languages size={36} strokeWidth={3} />}
-          <span className="absolute -top-2 -right-2 flex h-8 w-12 items-center justify-center rounded-full bg-red-500 text-xs font-black text-white shadow-lg border-2 border-white dark:border-slate-900 uppercase">
+          <span className="absolute -top-2 -right-2 flex h-8 w-12 items-center justify-center rounded-full bg-red-500 text-xs font-black text-white shadow-lg border-2 border-white uppercase">
             {locale.split('-')[0]}
           </span>
         </motion.button>
@@ -644,12 +659,12 @@ const FeatureCard: React.FC<{ icon: React.ReactNode, title: string, desc: string
   >
     <motion.div
       variants={scaleIn}
-      className="w-20 h-20 bg-black/5 dark:bg-white/5 rounded-[2rem] flex items-center justify-center"
+      className="w-20 h-20 bg-black/5 rounded-[2rem] flex items-center justify-center"
     >
       {React.cloneElement(icon as React.ReactElement, { size: 40 })}
     </motion.div>
     <h3 className="text-2xl font-black tracking-tight">{title}</h3>
-    <p className="text-base text-slate-700 dark:text-slate-400 font-medium leading-relaxed">{desc}</p>
+    <p className="text-base text-slate-700 font-medium leading-relaxed">{desc}</p>
   </motion.div>
 );
 
@@ -661,8 +676,8 @@ const TestimonialCard: React.FC<{ name: string, role: string, text: string }> = 
     <div className="flex items-center gap-1">
       {[...Array(5)].map((_, i) => <Star key={i} size={18} fill="#25D366" className="text-[#25D366]" />)}
     </div>
-    <p className="text-lg italic font-medium text-slate-800 dark:text-slate-300 leading-relaxed">"{text}"</p>
-    <div className="flex items-center gap-4 border-t border-black/5 dark:border-white/5 pt-6">
+    <p className="text-lg italic font-medium text-slate-800 leading-relaxed">"{text}"</p>
+    <div className="flex items-center gap-4 border-t border-black/5 pt-6">
       <div className="w-12 h-12 rounded-2xl bg-[#25D366]/20 flex items-center justify-center text-[#25D366] font-black text-lg uppercase">{name[0]}</div>
       <div className="flex flex-col">
         <span className="text-base font-black">{name}</span>
@@ -681,16 +696,16 @@ const StepCard: React.FC<{ num: string, icon: React.ReactNode, title: string, de
       initial={{ scale: 0 }}
       whileInView={{ scale: 1 }}
       transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
-      className="absolute top-0 left-0 -mt-5 -ml-4 w-14 h-14 bg-slate-900 dark:bg-slate-50 text-white dark:text-slate-900 rounded-2xl flex items-center justify-center font-black text-2xl shadow-2xl z-20"
+      className="absolute top-0 left-0 -mt-5 -ml-4 w-14 h-14 bg-slate-900 text-white rounded-2xl flex items-center justify-center font-black text-2xl shadow-2xl z-20"
     >
       {num}
     </motion.div>
-    <div className="w-20 h-20 bg-emerald-500/10 dark:bg-emerald-500/20 rounded-[2rem] flex items-center justify-center mx-auto text-[#25D366]">
+    <div className="w-20 h-20 bg-emerald-500/10 rounded-[2rem] flex items-center justify-center mx-auto text-[#25D366]">
       {React.cloneElement(icon as React.ReactElement, { size: 40, strokeWidth: 2 })}
     </div>
     <div className="space-y-4">
       <h3 className="text-2xl font-black tracking-tight">{title}</h3>
-      <p className="text-slate-700 dark:text-slate-400 font-medium leading-relaxed px-2">{desc}</p>
+      <p className="text-slate-700 font-medium leading-relaxed px-2">{desc}</p>
     </div>
   </motion.div>
 );
@@ -701,12 +716,12 @@ const WhyItem: React.FC<{ icon: React.ReactNode, title: string, desc: string }> 
       {React.cloneElement(icon as React.ReactElement, { size: 48, strokeWidth: 1.5 })}
     </div>
     <h3 className="text-xl font-black">{title}</h3>
-    <p className="text-sm text-slate-700 dark:text-slate-400 font-medium leading-relaxed">{desc}</p>
+    <p className="text-sm text-slate-700 font-medium leading-relaxed">{desc}</p>
   </motion.div>
 );
 
 const WhyBadge: React.FC<{ icon: React.ReactNode, text: string }> = ({ icon, text }) => (
-  <div className="flex items-center gap-3 text-sm md:text-base font-bold text-slate-700 dark:text-slate-400">
+  <div className="flex items-center gap-3 text-sm md:text-base font-bold text-slate-700">
     <span className="text-[#25D366]">{React.cloneElement(icon as React.ReactElement, { size: 20 })}</span>
     <span>{text}</span>
   </div>
@@ -728,14 +743,14 @@ const StatItem: React.FC<{ val: string, label: string }> = ({ val, label }) => (
 
 const FaqItem: React.FC<{ faq: { question: string, answer: string }, isOpen: boolean, onToggle: () => void }> = ({ faq, isOpen, onToggle }) => (
   <div className="glass rounded-[2rem] overflow-hidden border-2 border-transparent hover:border-emerald-500/10 transition-all">
-    <button onClick={onToggle} className="w-full flex items-center justify-between p-8 text-left hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+    <button onClick={onToggle} className="w-full flex items-center justify-between p-8 text-left hover:bg-black/5 transition-colors">
       <span className="text-xl font-bold">{faq.question}</span>
       <ChevronDown size={24} className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
     </button>
     <AnimatePresence>
       {isOpen && (
         <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
-          <div className="p-8 pt-0 text-lg text-slate-700 dark:text-slate-400 border-t border-black/5 dark:border-white/5 leading-relaxed">{faq.answer}</div>
+          <div className="p-8 pt-0 text-lg text-slate-700 border-t border-black/5 leading-relaxed">{faq.answer}</div>
         </motion.div>
       )}
     </AnimatePresence>
@@ -744,7 +759,7 @@ const FaqItem: React.FC<{ faq: { question: string, answer: string }, isOpen: boo
 
 const FooterCol: React.FC<{ title: string, links: { label: string, action?: () => void, url?: string }[] }> = ({ title, links }) => (
   <div className="space-y-6">
-    <h4 className="text-sm font-black uppercase tracking-widest text-slate-900 dark:text-white">{title}</h4>
+    <h4 className="text-sm font-black uppercase tracking-widest text-slate-900">{title}</h4>
     <ul className="space-y-3">
       {links.map(link => (
         <li key={link.label}>
@@ -764,7 +779,7 @@ const SocialShareBtn: React.FC<{ icon: React.ReactNode, onClick: () => void }> =
     whileHover={{ y: -3, scale: 1.1 }}
     whileTap={{ scale: 0.9 }}
     onClick={onClick}
-    className="p-2 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 text-slate-600 hover:text-[#25D366] transition-all"
+    className="p-2 rounded-xl hover:bg-black/5 text-slate-600 hover:text-[#25D366] transition-all"
   >
     {icon}
   </motion.button>
