@@ -63,7 +63,25 @@ const itemReveal = {
 // Helper for formatting phone numbers (simple version)
 const formatPhoneInput = (val: string) => val.replace(/\D/g, '').slice(0, 15);
 
-type Page = 'home' | 'privacy' | 'terms' | 'about' | 'contact';
+type Page = 'home' | 'privacy' | 'terms' | 'about' | 'contact' | 'business-qr-generator';
+
+const PAGE_SLUGS: Record<Page, string> = {
+  'home': '/',
+  'privacy': '/privacy',
+  'terms': '/terms',
+  'about': '/about',
+  'contact': '/contact',
+  'business-qr-generator': '/Business-Qr-Generator',
+};
+
+const SLUG_TO_PAGE: Record<string, Page> = Object.fromEntries(
+  Object.entries(PAGE_SLUGS).map(([page, slug]) => [slug.toLowerCase(), page as Page])
+) as Record<string, Page>;
+
+const getPageFromPath = (): Page => {
+  const path = window.location.pathname.toLowerCase();
+  return SLUG_TO_PAGE[path] || 'home';
+};
 
 const App: React.FC = () => {
 
@@ -75,7 +93,7 @@ const App: React.FC = () => {
   const [isCountryOpen, setIsCountryOpen] = useState(false);
   const [recentContacts, setRecentContacts] = useState<RecentContact[]>([]);
   const [copyStatus, setCopyStatus] = useState(false);
-  const [currentPage, setCurrentPage] = useState<Page>('home');
+  const [currentPage, setCurrentPageState] = useState<Page>(getPageFromPath());
   const [openFaqs, setOpenFaqs] = useState<number[]>([]);
 
   const t = TRANSLATIONS[locale];
@@ -88,7 +106,24 @@ const App: React.FC = () => {
     setOpenFaqs(t.faqs.map((_, i) => i));
   }, []);
 
+  const setCurrentPage = useCallback((page: Page) => {
+    setCurrentPageState(page);
+    const slug = PAGE_SLUGS[page];
+    if (window.location.pathname !== slug) {
+      window.history.pushState({ page }, '', slug);
+    }
+  }, []);
 
+  useEffect(() => {
+    const handlePopState = (e: PopStateEvent) => {
+      const page = e.state?.page || getPageFromPath();
+      setCurrentPageState(page);
+    };
+    window.addEventListener('popstate', handlePopState);
+    // Replace initial state so back button works correctly
+    window.history.replaceState({ page: currentPage }, '', PAGE_SLUGS[currentPage]);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
