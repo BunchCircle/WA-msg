@@ -1,18 +1,16 @@
 
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { 
-  Send, 
-  Copy, 
-  Trash2, 
-  UserPlus, 
-  ShieldCheck, 
-  Globe, 
-  ChevronDown, 
-  ChevronUp, 
-  QrCode, 
-  Check, 
-  Moon, 
-  Sun, 
+import {
+  Send,
+  Copy,
+  Trash2,
+  UserPlus,
+  ShieldCheck,
+  Globe,
+  ChevronDown,
+  ChevronUp,
+  QrCode,
+  Check,
   ExternalLink,
   Twitter,
   Instagram,
@@ -67,7 +65,7 @@ const formatPhoneInput = (val: string) => val.replace(/\D/g, '').slice(0, 15);
 type Page = 'home' | 'privacy' | 'terms' | 'about' | 'contact';
 
 const App: React.FC = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+
   const [locale, setLocale] = useState<Locale>('en');
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState<Country>(COUNTRIES[0]);
@@ -86,21 +84,10 @@ const App: React.FC = () => {
     if (savedContacts) setRecentContacts(JSON.parse(savedContacts));
     const savedLocale = localStorage.getItem('wa_locale') as Locale;
     if (savedLocale && TRANSLATIONS[savedLocale]) setLocale(savedLocale);
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) setIsDarkMode(true);
     setOpenFaqs(t.faqs.map((_, i) => i));
   }, []);
 
-  useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-      document.body.classList.add('bg-slate-950', 'text-white');
-      document.body.classList.remove('bg-gray-50', 'text-slate-900');
-    } else {
-      document.documentElement.classList.remove('dark');
-      document.body.classList.remove('bg-slate-950', 'text-white');
-      document.body.classList.add('bg-gray-50', 'text-slate-900');
-    }
-  }, [isDarkMode]);
+
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -147,7 +134,7 @@ const App: React.FC = () => {
   };
 
   const toggleFaq = (idx: number) => {
-    setOpenFaqs(prev => 
+    setOpenFaqs(prev =>
       prev.includes(idx) ? prev.filter(i => i !== idx) : [...prev, idx]
     );
   };
@@ -171,33 +158,33 @@ const App: React.FC = () => {
         <motion.div variants={fadeInUp} className="lg:col-span-8 space-y-8">
           <div className="glass p-8 md:p-12 rounded-[2.5rem] shadow-2xl border-white/50 dark:border-white/10 overflow-hidden relative group">
             <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none">
-                <Send size={160} className="rotate-12" />
+              <Send size={160} className="rotate-12" />
             </div>
-            
+
             <h1 className="text-3xl md:text-5xl font-black mb-4 leading-tight tracking-tight relative">{t.heroTitle}</h1>
-            <p className="text-lg md:text-xl text-slate-500 dark:text-slate-400 mb-10 max-w-2xl relative">{t.heroSubtitle}</p>
+            <p className="text-lg md:text-xl text-slate-800 dark:text-slate-400 mb-10 max-w-2xl relative">{t.heroSubtitle}</p>
 
             <div className="space-y-8 relative">
               <div className="relative">
-                <label className="block text-sm font-bold uppercase tracking-widest text-slate-400 mb-3 ml-2">{t.labelPhone}</label>
+                <label className="block text-sm font-bold uppercase tracking-widest text-slate-700 mb-3 ml-2">{t.labelPhone}</label>
                 <div className="flex flex-col sm:flex-row gap-3">
                   <div className="relative sm:w-[45%] xl:w-1/3">
-                    <motion.button 
+                    <motion.button
                       whileTap={{ scale: 0.98 }}
                       onClick={() => setIsCountryOpen(!isCountryOpen)}
                       className="w-full flex items-center gap-2 px-6 py-5 rounded-[1.5rem] bg-black/5 dark:bg-white/5 border-2 border-slate-200 dark:border-slate-800 hover:border-[#25D366] dark:hover:border-[#25D366] transition-all justify-between text-lg font-bold"
                     >
                       <div className="flex items-center gap-3">
                         <img src={`https://flagcdn.com/w40/${selectedCountry.code.toLowerCase()}.png`} alt={selectedCountry.code} className="w-8 h-5 rounded-sm object-cover shadow-sm" />
-                        <span className="text-slate-400 text-sm font-black uppercase tracking-tighter">{selectedCountry.code}</span>
+                        <span className="text-slate-600 text-sm font-black uppercase tracking-tighter">{selectedCountry.code}</span>
                         <span className="whitespace-nowrap">+{selectedCountry.dialCode}</span>
                       </div>
                       <ChevronDown size={18} className={`opacity-50 transition-transform duration-300 ${isCountryOpen ? 'rotate-180' : ''}`} />
                     </motion.button>
-                    
+
                     <AnimatePresence>
                       {isCountryOpen && (
-                        <motion.div 
+                        <motion.div
                           initial={{ opacity: 0, scale: 0.95, y: 10, filter: 'blur(10px)' }}
                           animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
                           exit={{ opacity: 0, scale: 0.95, y: 10, filter: 'blur(10px)' }}
@@ -211,9 +198,9 @@ const App: React.FC = () => {
                                 className="w-full flex items-center gap-4 px-6 py-3.5 hover:bg-[#25D366]/10 dark:hover:bg-[#25D366]/10 transition-colors text-left"
                               >
                                 <img src={`https://flagcdn.com/w40/${country.code.toLowerCase()}.png`} alt={country.code} className="w-7 h-4 rounded-sm object-cover shadow-sm" />
-                                <span className="w-8 text-[11px] font-black text-slate-400 uppercase tracking-tighter">{country.code}</span>
+                                <span className="w-8 text-[11px] font-black text-slate-600 uppercase tracking-tighter">{country.code}</span>
                                 <span className="flex-grow font-semibold text-base whitespace-nowrap overflow-hidden text-ellipsis">{country.name}</span>
-                                <span className="text-slate-400 text-sm font-mono whitespace-nowrap">+{country.dialCode}</span>
+                                <span className="text-slate-600 text-sm font-mono whitespace-nowrap">+{country.dialCode}</span>
                               </button>
                             ))}
                           </div>
@@ -221,8 +208,8 @@ const App: React.FC = () => {
                       )}
                     </AnimatePresence>
                   </div>
-                  
-                  <input 
+
+                  <input
                     type="tel"
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(formatPhoneInput(e.target.value))}
@@ -233,9 +220,9 @@ const App: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-bold uppercase tracking-widest text-slate-400 mb-3 ml-2">{t.labelMessage}</label>
+                <label className="block text-sm font-bold uppercase tracking-widest text-slate-700 mb-3 ml-2">{t.labelMessage}</label>
                 <div className="relative">
-                  <textarea 
+                  <textarea
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder={t.placeholderMessage}
@@ -243,11 +230,11 @@ const App: React.FC = () => {
                     maxLength={1000}
                     className="w-full px-8 py-6 rounded-[1.5rem] bg-black/5 dark:bg-white/5 border-2 border-slate-200 dark:border-slate-800 focus:border-[#25D366] dark:focus:border-[#25D366] focus:ring-8 focus:ring-green-500/5 transition-all text-lg font-medium outline-none resize-none placeholder:text-slate-300 dark:placeholder:text-slate-600 leading-relaxed"
                   />
-                  <div className="absolute bottom-6 right-6 text-sm text-slate-400 font-bold bg-white/70 dark:bg-black/70 px-3 py-1.5 rounded-xl backdrop-blur-md">
+                  <div className="absolute bottom-6 right-6 text-sm text-slate-700 font-bold bg-white/70 dark:bg-black/70 px-3 py-1.5 rounded-xl backdrop-blur-md">
                     {message.length} / 1000
                   </div>
                 </div>
-                
+
                 <div className="flex flex-wrap gap-2.5 mt-6">
                   {t.templates.map((tmpl) => (
                     <motion.button
@@ -264,7 +251,7 @@ const App: React.FC = () => {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-5 pt-4">
-                <motion.button 
+                <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={handleOpenWhatsApp}
@@ -274,7 +261,7 @@ const App: React.FC = () => {
                   {t.btnSend}
                   <ExternalLink size={24} strokeWidth={3} className="group-hover:translate-x-1 transition-transform" />
                 </motion.button>
-                <motion.button 
+                <motion.button
                   whileHover={{ scale: 1.02, backgroundColor: 'rgba(37, 211, 102, 0.05)' }}
                   whileTap={{ scale: 0.98 }}
                   onClick={handleCopyLink}
@@ -303,19 +290,19 @@ const App: React.FC = () => {
             </div>
             <div>
               <h3 className="text-xl font-black mb-1">{t.sidebarQRTitle}</h3>
-              <p className="text-sm font-medium text-slate-400">{t.sidebarQRDesc}</p>
+              <p className="text-sm font-medium text-slate-700">{t.sidebarQRDesc}</p>
             </div>
-            
+
             <div className="bg-white p-5 rounded-3xl shadow-inner inline-block border-8 border-slate-50 dark:border-slate-800/50">
               <AnimatePresence mode="wait">
                 {phoneNumber ? (
-                   <motion.img 
+                  <motion.img
                     key="qr"
                     initial={{ opacity: 0, rotateY: 90 }}
                     animate={{ opacity: 1, rotateY: 0 }}
                     exit={{ opacity: 0, rotateY: -90 }}
-                    src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(waLink)}`} 
-                    alt="QR Code" 
+                    src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(waLink)}`}
+                    alt="QR Code"
                     className="w-40 h-40 md:w-48 md:h-48"
                   />
                 ) : (
@@ -345,9 +332,9 @@ const App: React.FC = () => {
               {recentContacts.length > 0 ? (
                 <motion.div layout className="space-y-4">
                   {recentContacts.map((contact) => (
-                    <motion.div 
+                    <motion.div
                       layout
-                      key={contact.id} 
+                      key={contact.id}
                       variants={itemReveal}
                       initial="initial" animate="animate" exit={{ opacity: 0, x: 20 }}
                       className="group flex items-center justify-between p-4 bg-black/5 dark:bg-white/5 rounded-2xl border-2 border-transparent hover:border-[#25D366]/30 transition-all cursor-pointer"
@@ -362,16 +349,16 @@ const App: React.FC = () => {
                     >
                       <div className="flex flex-col">
                         <span className="text-lg font-bold">{contact.number}</span>
-                        <span className="text-xs text-slate-400 font-medium">{new Date(contact.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                        <span className="text-xs text-slate-600 font-medium">{new Date(contact.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                       </div>
-                      <ExternalLink size={18} className="text-slate-400 group-hover:text-[#25D366] transition-colors" />
+                      <ExternalLink size={18} className="text-slate-600 group-hover:text-[#25D366] transition-colors" />
                     </motion.div>
                   ))}
                 </motion.div>
               ) : (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col items-center justify-center py-12 text-center">
                   <UserPlus size={40} className="text-slate-200 dark:text-slate-800 mb-4" />
-                  <p className="text-sm text-slate-400 font-medium px-6">{t.sidebarRecentEmpty}</p>
+                  <p className="text-sm text-slate-600 font-medium px-6">{t.sidebarRecentEmpty}</p>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -437,7 +424,7 @@ const App: React.FC = () => {
       </section>
       <section className="space-y-4">
         <h2 className="text-2xl font-bold">2. Data We Don't Collect</h2>
-        <p className="leading-relaxed text-slate-400">Unlike other services, Circlebunch does <strong>not</strong> store your phone numbers, messages, or contact history on our servers. All processing happens locally in your web browser.</p>
+        <p className="leading-relaxed text-slate-700">Unlike other services, Circlebunch does <strong>not</strong> store your phone numbers, messages, or contact history on our servers. All processing happens locally in your web browser.</p>
       </section>
       <button onClick={() => setCurrentPage('home')} className="mt-8 font-black text-[#25D366] flex items-center gap-2 hover:gap-4 transition-all group">
         <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Home
@@ -448,10 +435,10 @@ const App: React.FC = () => {
   const renderTerms = () => (
     <motion.div variants={fadeInUp} initial="initial" animate="animate" className="glass p-12 rounded-[3rem] space-y-8 max-w-4xl mx-auto shadow-2xl">
       <h1 className="text-5xl font-black tracking-tight">Terms of Service</h1>
-      <p className="text-lg text-slate-500">Last updated: October 2023</p>
+      <p className="text-lg text-slate-800">Last updated: October 2023</p>
       <section className="space-y-4">
         <h2 className="text-2xl font-bold">1. Acceptance of Terms</h2>
-        <p className="leading-relaxed text-slate-400">By accessing and using Circlebunch, you agree to be bound by these Terms of Service and all applicable laws and regulations.</p>
+        <p className="leading-relaxed text-slate-700">By accessing and using Circlebunch, you agree to be bound by these Terms of Service and all applicable laws and regulations.</p>
       </section>
       <button onClick={() => setCurrentPage('home')} className="mt-8 font-black text-[#25D366] flex items-center gap-2 hover:gap-4 transition-all group">
         <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Home
@@ -465,15 +452,15 @@ const App: React.FC = () => {
         <Info size={48} strokeWidth={2.5} />
       </motion.div>
       <h1 className="text-5xl font-black tracking-tight">About Circlebunch</h1>
-      <p className="text-2xl text-slate-500 leading-relaxed max-w-2xl mx-auto">We believe that starting a conversation shouldn't require a permanent commitment to your contact list.</p>
+      <p className="text-2xl text-slate-800 leading-relaxed max-w-2xl mx-auto">We believe that starting a conversation shouldn't require a permanent commitment to your contact list.</p>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
         <motion.div whileHover={{ scale: 1.02 }} className="p-8 bg-black/5 dark:bg-white/5 rounded-[2rem] space-y-4">
           <h3 className="text-xl font-bold">The Problem</h3>
-          <p className="text-slate-500">Our phone books are filled with temporary contacts. This clutter makes it harder to find the people who actually matter.</p>
+          <p className="text-slate-700">Our phone books are filled with temporary contacts. This clutter makes it harder to find the people who actually matter.</p>
         </motion.div>
         <motion.div whileHover={{ scale: 1.02 }} className="p-8 bg-black/5 dark:bg-white/5 rounded-[2rem] space-y-4">
           <h3 className="text-xl font-bold">The Solution</h3>
-          <p className="text-slate-500">Circlebunch provides a premium gateway to WhatsApp direct messaging. No registration, no clutter.</p>
+          <p className="text-slate-700">Circlebunch provides a premium gateway to WhatsApp direct messaging. No registration, no clutter.</p>
         </motion.div>
       </div>
       <button onClick={() => setCurrentPage('home')} className="mx-auto mt-12 font-black text-[#25D366] flex items-center gap-2 hover:gap-4 transition-all group">
@@ -485,16 +472,16 @@ const App: React.FC = () => {
   const renderContact = () => (
     <motion.div variants={fadeInUp} initial="initial" animate="animate" className="glass p-12 rounded-[3rem] space-y-8 max-w-4xl mx-auto shadow-2xl">
       <h1 className="text-5xl font-black tracking-tight">Contact Us</h1>
-      <p className="text-xl text-slate-500">Have questions, feedback, or need help? We're here for you.</p>
+      <p className="text-xl text-slate-800">Have questions, feedback, or need help? We're here for you.</p>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 pt-8">
         <div className="space-y-6">
           <div className="flex items-center gap-6">
             <div className="w-14 h-14 bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-500"><Mail size={28} /></div>
-            <div><p className="text-sm font-bold uppercase text-slate-400">Email Us</p><p className="text-xl font-black">support@circlebunch.com</p></div>
+            <div><p className="text-sm font-bold uppercase text-slate-700">Email Us</p><p className="text-xl font-black">support@circlebunch.com</p></div>
           </div>
           <div className="flex items-center gap-6">
             <div className="w-14 h-14 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-500"><Linkedin size={28} /></div>
-            <div><p className="text-sm font-bold uppercase text-slate-400">Social</p><p className="text-xl font-black">@circlebunch</p></div>
+            <div><p className="text-sm font-bold uppercase text-slate-700">Social</p><p className="text-xl font-black">@circlebunch</p></div>
           </div>
         </div>
       </div>
@@ -505,27 +492,27 @@ const App: React.FC = () => {
   );
 
   return (
-    <div className={`min-h-screen flex flex-col transition-colors duration-500 overflow-x-hidden ${isDarkMode ? 'dark' : ''}`}>
+    <div className="min-h-screen flex flex-col transition-colors duration-500 overflow-x-hidden">
       {/* Dynamic Background */}
       <div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
-        <motion.div 
-            animate={{ x: [0, 50, 0], y: [0, 30, 0], rotate: [0, 10, 0] }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            className={`absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full blur-[180px] opacity-40 ${isDarkMode ? 'bg-emerald-900/50' : 'bg-emerald-200'}`}
+        <motion.div
+          animate={{ x: [0, 50, 0], y: [0, 30, 0], rotate: [0, 10, 0] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full blur-[180px] opacity-40 bg-emerald-200"
         />
-        <motion.div 
-            animate={{ x: [0, -40, 0], y: [0, -50, 0] }}
-            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-            className={`absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full blur-[180px] opacity-30 ${isDarkMode ? 'bg-green-900/40' : 'bg-green-200'}`}
+        <motion.div
+          animate={{ x: [0, -40, 0], y: [0, -50, 0] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+          className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full blur-[180px] opacity-30 bg-green-200"
         />
       </div>
 
       <nav className="sticky top-0 z-50 px-6 py-4 glass mb-6 border-b shadow-sm">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <motion.button 
-            whileHover={{ scale: 1.05 }} 
+          <motion.button
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => setCurrentPage('home')} 
+            onClick={() => setCurrentPage('home')}
             className="flex items-center gap-3"
           >
             <div className="w-11 h-11 bg-[#25D366] rounded-2xl flex items-center justify-center text-white shadow-xl shadow-green-500/30">
@@ -533,17 +520,8 @@ const App: React.FC = () => {
             </div>
             <span className="text-2xl font-extrabold tracking-tight">{t.navTitle}</span>
           </motion.button>
-          
-          <div className="flex items-center gap-4">
-             <motion.button 
-              whileHover={{ rotate: 15 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={() => setIsDarkMode(!isDarkMode)}
-              className="p-3 rounded-2xl bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-all"
-            >
-              {isDarkMode ? <Sun size={24} /> : <Moon size={24} />}
-            </motion.button>
-          </div>
+
+
         </div>
       </nav>
 
@@ -561,13 +539,18 @@ const App: React.FC = () => {
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
             <div className="md:col-span-1 space-y-6">
-              <div className="flex items-center gap-3">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setCurrentPage('home')}
+                className="flex items-center gap-3"
+              >
                 <div className="w-10 h-10 bg-[#25D366] rounded-xl flex items-center justify-center text-white">
                   <Send size={20} strokeWidth={2.5} />
                 </div>
                 <span className="text-xl font-black tracking-tight">{t.navTitle}</span>
-              </div>
-              <p className="text-sm font-bold text-slate-400 leading-relaxed">{t.footerTagline}</p>
+              </motion.button>
+              <p className="text-sm font-bold text-slate-600 leading-relaxed">{t.footerTagline}</p>
               <div className="flex gap-4">
                 <SocialShareBtn icon={<Twitter size={20} />} onClick={() => handleShare('twitter')} />
                 <SocialShareBtn icon={<Facebook size={20} />} onClick={() => handleShare('facebook')} />
@@ -575,18 +558,18 @@ const App: React.FC = () => {
               </div>
             </div>
 
-            <FooterCol title="Company" links={[{label: 'About Us', action: () => setCurrentPage('about')}, {label: 'Contact Us', action: () => setCurrentPage('contact')}]} />
-            <FooterCol title="Legal" links={[{label: 'Privacy Policy', action: () => setCurrentPage('privacy')}, {label: 'Terms of Service', action: () => setCurrentPage('terms')}]} />
-            <FooterCol title="Tools" links={[{label: 'WA Direct', action: () => setCurrentPage('home')}, {label: 'WhatsApp Web', url: 'https://wa.me'}]} />
+            <FooterCol title="Company" links={[{ label: 'About Us', action: () => setCurrentPage('about') }, { label: 'Contact Us', action: () => setCurrentPage('contact') }]} />
+            <FooterCol title="Legal" links={[{ label: 'Privacy Policy', action: () => setCurrentPage('privacy') }, { label: 'Terms of Service', action: () => setCurrentPage('terms') }]} />
+            <FooterCol title="Tools" links={[{ label: 'WA Direct', action: () => setCurrentPage('home') }, { label: 'WhatsApp Web', url: 'https://wa.me' }]} />
           </div>
 
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-12 border-t border-black/5 dark:border-white/5 text-slate-400 text-sm font-bold">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-12 border-t border-black/5 dark:border-white/5 text-slate-600 text-sm font-bold">
             <div className="flex items-center gap-1">
               {t.footerMadeWith} <span className="text-red-500">❤️</span> by{' '}
-              <a 
-                href="https://www.linkedin.com/in/vipulsingh97/" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <a
+                href="https://www.linkedin.com/in/vipulsingh97/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-[#25D366] hover:underline transition-all"
               >
                 Vipul Singh
@@ -601,7 +584,7 @@ const App: React.FC = () => {
       <div className="fixed bottom-8 right-8 z-[100] flex flex-col items-end">
         <AnimatePresence>
           {isLanguageOpen && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -615,7 +598,7 @@ const App: React.FC = () => {
                 >
                   <div className="flex flex-col">
                     <span>{lang.native}</span>
-                    <span className="text-xs text-slate-400 font-medium">{lang.name}</span>
+                    <span className="text-xs text-slate-600 font-medium">{lang.name}</span>
                   </div>
                   {locale === lang.code && <Check size={20} strokeWidth={3} className="text-emerald-500" />}
                 </button>
@@ -624,7 +607,7 @@ const App: React.FC = () => {
           )}
         </AnimatePresence>
 
-        <motion.button 
+        <motion.button
           whileHover={{ scale: 1.1, rotate: 5 }}
           whileTap={{ scale: 0.9 }}
           onClick={() => setIsLanguageOpen(!isLanguageOpen)}
@@ -642,7 +625,7 @@ const App: React.FC = () => {
 
 // Sub-components with animations
 const SectionWrapper: React.FC<{ title: string, children: React.ReactNode, maxWidth?: string }> = ({ title, children, maxWidth = "max-w-6xl" }) => (
-  <motion.section 
+  <motion.section
     initial="initial"
     whileInView="animate"
     viewport={{ once: true, margin: "-100px" }}
@@ -655,50 +638,50 @@ const SectionWrapper: React.FC<{ title: string, children: React.ReactNode, maxWi
 );
 
 const FeatureCard: React.FC<{ icon: React.ReactNode, title: string, desc: string }> = ({ icon, title, desc }) => (
-  <motion.div 
+  <motion.div
     whileHover={{ y: -10, scale: 1.02 }}
     className="glass p-10 rounded-[3rem] text-center flex flex-col items-center gap-6 shadow-lg hover:shadow-2xl transition-all"
   >
-    <motion.div 
-        variants={scaleIn}
-        className="w-20 h-20 bg-black/5 dark:bg-white/5 rounded-[2rem] flex items-center justify-center"
+    <motion.div
+      variants={scaleIn}
+      className="w-20 h-20 bg-black/5 dark:bg-white/5 rounded-[2rem] flex items-center justify-center"
     >
       {React.cloneElement(icon as React.ReactElement, { size: 40 })}
     </motion.div>
     <h3 className="text-2xl font-black tracking-tight">{title}</h3>
-    <p className="text-base text-slate-500 dark:text-slate-400 font-medium leading-relaxed">{desc}</p>
+    <p className="text-base text-slate-700 dark:text-slate-400 font-medium leading-relaxed">{desc}</p>
   </motion.div>
 );
 
 const TestimonialCard: React.FC<{ name: string, role: string, text: string }> = ({ name, role, text }) => (
-  <motion.div 
+  <motion.div
     whileHover={{ scale: 1.05, y: -5 }}
     className="glass p-8 rounded-[2.5rem] space-y-6 shadow-lg"
   >
     <div className="flex items-center gap-1">
       {[...Array(5)].map((_, i) => <Star key={i} size={18} fill="#25D366" className="text-[#25D366]" />)}
     </div>
-    <p className="text-lg italic font-medium text-slate-600 dark:text-slate-300 leading-relaxed">"{text}"</p>
+    <p className="text-lg italic font-medium text-slate-800 dark:text-slate-300 leading-relaxed">"{text}"</p>
     <div className="flex items-center gap-4 border-t border-black/5 dark:border-white/5 pt-6">
       <div className="w-12 h-12 rounded-2xl bg-[#25D366]/20 flex items-center justify-center text-[#25D366] font-black text-lg uppercase">{name[0]}</div>
       <div className="flex flex-col">
         <span className="text-base font-black">{name}</span>
-        <span className="text-xs text-slate-400 font-bold uppercase tracking-widest">{role}</span>
+        <span className="text-xs text-slate-600 font-bold uppercase tracking-widest">{role}</span>
       </div>
     </div>
   </motion.div>
 );
 
 const StepCard: React.FC<{ num: string, icon: React.ReactNode, title: string, desc: string }> = ({ num, icon, title, desc }) => (
-  <motion.div 
+  <motion.div
     whileHover={{ scale: 1.03 }}
     className="relative glass p-10 pt-14 rounded-[3.5rem] text-center space-y-6 border-white/40 shadow-xl"
   >
-    <motion.div 
-        initial={{ scale: 0 }}
-        whileInView={{ scale: 1 }}
-        transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
-        className="absolute top-0 left-0 -mt-5 -ml-4 w-14 h-14 bg-slate-900 dark:bg-slate-50 text-white dark:text-slate-900 rounded-2xl flex items-center justify-center font-black text-2xl shadow-2xl z-20"
+    <motion.div
+      initial={{ scale: 0 }}
+      whileInView={{ scale: 1 }}
+      transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
+      className="absolute top-0 left-0 -mt-5 -ml-4 w-14 h-14 bg-slate-900 dark:bg-slate-50 text-white dark:text-slate-900 rounded-2xl flex items-center justify-center font-black text-2xl shadow-2xl z-20"
     >
       {num}
     </motion.div>
@@ -707,7 +690,7 @@ const StepCard: React.FC<{ num: string, icon: React.ReactNode, title: string, de
     </div>
     <div className="space-y-4">
       <h3 className="text-2xl font-black tracking-tight">{title}</h3>
-      <p className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed px-2">{desc}</p>
+      <p className="text-slate-700 dark:text-slate-400 font-medium leading-relaxed px-2">{desc}</p>
     </div>
   </motion.div>
 );
@@ -718,12 +701,12 @@ const WhyItem: React.FC<{ icon: React.ReactNode, title: string, desc: string }> 
       {React.cloneElement(icon as React.ReactElement, { size: 48, strokeWidth: 1.5 })}
     </div>
     <h3 className="text-xl font-black">{title}</h3>
-    <p className="text-sm text-slate-500 dark:text-slate-400 font-medium leading-relaxed">{desc}</p>
+    <p className="text-sm text-slate-700 dark:text-slate-400 font-medium leading-relaxed">{desc}</p>
   </motion.div>
 );
 
 const WhyBadge: React.FC<{ icon: React.ReactNode, text: string }> = ({ icon, text }) => (
-  <div className="flex items-center gap-3 text-sm md:text-base font-bold text-slate-500 dark:text-slate-400">
+  <div className="flex items-center gap-3 text-sm md:text-base font-bold text-slate-700 dark:text-slate-400">
     <span className="text-[#25D366]">{React.cloneElement(icon as React.ReactElement, { size: 20 })}</span>
     <span>{text}</span>
   </div>
@@ -731,15 +714,15 @@ const WhyBadge: React.FC<{ icon: React.ReactNode, text: string }> = ({ icon, tex
 
 const StatItem: React.FC<{ val: string, label: string }> = ({ val, label }) => (
   <div className="space-y-2">
-    <motion.h4 
-        initial={{ opacity: 0, scale: 0.5 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, type: "spring" }}
-        className="text-5xl font-black text-[#25D366] tracking-tighter"
+    <motion.h4
+      initial={{ opacity: 0, scale: 0.5 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.8, type: "spring" }}
+      className="text-5xl font-black text-[#25D366] tracking-tighter"
     >
-        {val}
+      {val}
     </motion.h4>
-    <p className="text-base font-bold text-slate-400 uppercase tracking-widest">{label}</p>
+    <p className="text-base font-bold text-slate-600 uppercase tracking-widest">{label}</p>
   </div>
 );
 
@@ -752,7 +735,7 @@ const FaqItem: React.FC<{ faq: { question: string, answer: string }, isOpen: boo
     <AnimatePresence>
       {isOpen && (
         <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
-          <div className="p-8 pt-0 text-lg text-slate-500 dark:text-slate-400 border-t border-black/5 dark:border-white/5 leading-relaxed">{faq.answer}</div>
+          <div className="p-8 pt-0 text-lg text-slate-700 dark:text-slate-400 border-t border-black/5 dark:border-white/5 leading-relaxed">{faq.answer}</div>
         </motion.div>
       )}
     </AnimatePresence>
@@ -766,9 +749,9 @@ const FooterCol: React.FC<{ title: string, links: { label: string, action?: () =
       {links.map(link => (
         <li key={link.label}>
           {link.url ? (
-            <a href={link.url} target="_blank" rel="noopener" className="text-slate-400 hover:text-[#25D366] font-bold transition-colors">{link.label}</a>
+            <a href={link.url} target="_blank" rel="noopener" className="text-slate-600 hover:text-[#25D366] font-bold transition-colors">{link.label}</a>
           ) : (
-            <button onClick={link.action} className="text-slate-400 hover:text-[#25D366] font-bold transition-colors">{link.label}</button>
+            <button onClick={link.action} className="text-slate-600 hover:text-[#25D366] font-bold transition-colors">{link.label}</button>
           )}
         </li>
       ))}
@@ -777,11 +760,11 @@ const FooterCol: React.FC<{ title: string, links: { label: string, action?: () =
 );
 
 const SocialShareBtn: React.FC<{ icon: React.ReactNode, onClick: () => void }> = ({ icon, onClick }) => (
-  <motion.button 
+  <motion.button
     whileHover={{ y: -3, scale: 1.1 }}
     whileTap={{ scale: 0.9 }}
-    onClick={onClick} 
-    className="p-2 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 text-slate-400 hover:text-[#25D366] transition-all"
+    onClick={onClick}
+    className="p-2 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 text-slate-600 hover:text-[#25D366] transition-all"
   >
     {icon}
   </motion.button>
