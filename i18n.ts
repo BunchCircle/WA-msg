@@ -4,7 +4,7 @@ import { Translation, Locale } from './types';
 export const TRANSLATIONS: Record<Locale, Translation> = {
   en: {
     navTitle: "Circlebunch",
-    heroTitle: "Message Without Saving",
+    heroTitle: "Whatsapp Message Without Saving Contact",
     heroSubtitle: "Enter a phone number to start a direct WhatsApp chat instantly.",
     labelPhone: "Phone Number",
     labelMessage: "Message (Optional)",
@@ -56,7 +56,7 @@ export const TRANSLATIONS: Record<Locale, Translation> = {
   },
   'zh-CN': {
     navTitle: "Circlebunch",
-    heroTitle: "无需保存，直接发消息",
+    heroTitle: "无需保存联系人直接发送 WhatsApp 消息",
     heroSubtitle: "输入电话号码，立即开始 WhatsApp 对话。",
     labelPhone: "电话号码",
     labelMessage: "消息内容（可选）",
@@ -100,7 +100,7 @@ export const TRANSLATIONS: Record<Locale, Translation> = {
   },
   'zh-HK': {
     navTitle: "Circlebunch",
-    heroTitle: "無需儲存，直接發訊息",
+    heroTitle: "無需儲存聯絡人直接發送 WhatsApp 訊息",
     heroSubtitle: "輸入電話號碼，立即開始 WhatsApp 對話。",
     labelPhone: "電話號碼",
     labelMessage: "訊息內容（可選）",
@@ -143,7 +143,7 @@ export const TRANSLATIONS: Record<Locale, Translation> = {
   },
   vi: {
     navTitle: "Circlebunch",
-    heroTitle: "Nhắn tin không cần lưu số",
+    heroTitle: "Nhắn tin WhatsApp mà không cần lưu số điện thoại",
     heroSubtitle: "Nhập số điện thoại để bắt đầu trò chuyện WhatsApp trực tiếp ngay lập tức.",
     labelPhone: "Số điện thoại",
     labelMessage: "Tin nhắn (Tùy chọn)",
@@ -186,7 +186,7 @@ export const TRANSLATIONS: Record<Locale, Translation> = {
   },
   pt: {
     navTitle: "Circlebunch",
-    heroTitle: "Mensagem sem Salvar",
+    heroTitle: "Enviar mensagem de WhatsApp sem salvar o contato",
     heroSubtitle: "Insira um número de telefone para iniciar um chat direto no WhatsApp instantaneamente.",
     labelPhone: "Número de Telefone",
     labelMessage: "Mensagem (Opcional)",
@@ -229,7 +229,7 @@ export const TRANSLATIONS: Record<Locale, Translation> = {
   },
   hi: {
     navTitle: "Circlebunch",
-    heroTitle: "बिना सेव किए मैसेज करें",
+    heroTitle: "बिना कॉन्टैक्ट सेव किए व्हाट्सएप मैसेज",
     heroSubtitle: "तुरंत व्हाट्सएप चैट शुरू करने के लिए फोन नंबर दर्ज करें।",
     labelPhone: "फोन नंबर",
     labelMessage: "संदेश (वैकल्पिक)",
@@ -272,7 +272,7 @@ export const TRANSLATIONS: Record<Locale, Translation> = {
   },
   es: {
     navTitle: "Circlebunch",
-    heroTitle: "Mensaje sin Guardar",
+    heroTitle: "Mensaje de WhatsApp sin guardar contacto",
     heroSubtitle: "Ingrese un número de teléfono para iniciar un chat directo de WhatsApp al instante.",
     labelPhone: "Número de Teléfono",
     labelMessage: "Mensaje (Persona)",
