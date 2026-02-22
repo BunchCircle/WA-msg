@@ -399,6 +399,7 @@ const BusinessQrGenerator: React.FC<BusinessQrGeneratorProps> = ({ onNavigateHom
   // Waitlist state
   const [waitlistEmail, setWaitlistEmail] = useState('');
   const [waitlistSubmitted, setWaitlistSubmitted] = useState(false);
+  const [isEnlarged, setIsEnlarged] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const designBlockRef = useRef<HTMLDivElement>(null);
@@ -1142,7 +1143,8 @@ Example for instruction "Call 9958929886":
                     <img
                       src={designBlockUrl}
                       alt="QR Design Block — Print Ready"
-                      className="w-full"
+                      className="w-full cursor-zoom-in transition-transform hover:scale-[1.02]"
+                      onClick={() => setIsEnlarged(true)}
                     />
                   </motion.div>
                 ) : qrDataUrl ? (
@@ -1332,6 +1334,41 @@ Example for instruction "Call 9958929886":
           </div>
         </div>
       </motion.section>
+
+      {/* Enlarged Preview Modal */}
+      <AnimatePresence>
+        {isEnlarged && designBlockUrl && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 bg-slate-900/90 backdrop-blur-sm"
+            onClick={() => setIsEnlarged(false)}
+          >
+            <motion.button
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              className="absolute top-6 right-6 w-12 h-12 bg-white/10 hover:bg-white/20 text-white rounded-full flex items-center justify-center transition-colors z-[101]"
+              onClick={(e) => { e.stopPropagation(); setIsEnlarged(false); }}
+            >
+              <X size={24} />
+            </motion.button>
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              className="relative max-w-4xl w-full bg-white rounded-3xl overflow-hidden shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img
+                src={designBlockUrl}
+                alt="QR Design Block — Enlarged"
+                className="w-full h-auto"
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };
