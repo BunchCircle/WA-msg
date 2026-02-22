@@ -197,8 +197,8 @@ const App: React.FC = () => {
               <Send size={160} className="rotate-12" />
             </div>
 
-            <h1 className="text-3xl md:text-5xl font-black mb-4 leading-tight tracking-tight relative">{t.heroTitle}</h1>
-            <p className="text-lg md:text-xl text-slate-800 mb-10 max-w-2xl relative">{t.heroSubtitle}</p>
+            <h1 className="text-3xl md:text-4xl font-black mb-4 leading-tight tracking-tight relative">{t.heroTitle}</h1>
+            <p className="text-base md:text-lg text-slate-800 mb-8 max-w-2xl relative">{t.heroSubtitle}</p>
 
             <div className="space-y-8 relative">
               <div className="relative">
@@ -212,7 +212,7 @@ const App: React.FC = () => {
                     >
                       <div className="flex items-center gap-3">
                         <img src={`https://flagcdn.com/w40/${selectedCountry.code.toLowerCase()}.png`} alt={selectedCountry.code} className="w-8 h-5 rounded-sm object-cover shadow-sm" />
-                        <span className="text-slate-600 text-sm font-black uppercase tracking-tighter">{selectedCountry.code}</span>
+                        <span className="text-slate-600 text-xs font-black uppercase tracking-tighter">{selectedCountry.code}</span>
                         <span className="whitespace-nowrap">+{selectedCountry.dialCode}</span>
                       </div>
                       <ChevronDown size={18} className={`opacity-50 transition-transform duration-300 ${isCountryOpen ? 'rotate-180' : ''}`} />
@@ -262,11 +262,11 @@ const App: React.FC = () => {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder={t.placeholderMessage}
-                    rows={5}
+                    rows={4}
                     maxLength={1000}
-                    className="w-full px-8 py-6 rounded-[1.5rem] bg-black/5 border-2 border-slate-200 focus:border-[#25D366] focus:ring-8 focus:ring-green-500/5 transition-all text-lg font-medium outline-none resize-none placeholder:text-slate-300 leading-relaxed"
+                    className="w-full px-6 py-4 rounded-[1.25rem] bg-black/5 border-2 border-slate-200 focus:border-[#25D366] focus:ring-8 focus:ring-green-500/5 transition-all text-base font-medium outline-none resize-none placeholder:text-slate-300 leading-relaxed"
                   />
-                  <div className="absolute bottom-6 right-6 text-sm text-slate-700 font-bold bg-white/70 px-3 py-1.5 rounded-xl backdrop-blur-md">
+                  <div className="absolute bottom-4 right-6 text-xs text-slate-700 font-bold bg-white/70 px-2 py-1 rounded-lg backdrop-blur-md">
                     {message.length} / 1000
                   </div>
                 </div>
@@ -292,19 +292,19 @@ const App: React.FC = () => {
                   whileTap={{ scale: 0.98 }}
                   onClick={handleOpenWhatsApp}
                   disabled={!phoneNumber}
-                  className="flex-grow py-6 px-10 bg-gradient-to-r from-[#25D366] to-[#128C7E] hover:from-[#1eb856] hover:to-[#0f766a] text-white rounded-[1.5rem] font-black flex items-center justify-center gap-3 transition-all shadow-2xl shadow-green-500/30 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed text-xl group"
+                  className="flex-grow py-4 px-10 bg-gradient-to-r from-[#25D366] to-[#128C7E] hover:from-[#1eb856] hover:to-[#0f766a] text-white rounded-[1.25rem] font-black flex items-center justify-center gap-3 transition-all shadow-xl shadow-green-500/30 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed text-lg group"
                 >
                   {t.btnSend}
-                  <ExternalLink size={24} strokeWidth={3} className="group-hover:translate-x-1 transition-transform" />
+                  <ExternalLink size={20} strokeWidth={3} className="group-hover:translate-x-1 transition-transform" />
                 </motion.button>
                 <motion.button
                   whileHover={{ scale: 1.02, backgroundColor: 'rgba(37, 211, 102, 0.05)' }}
                   whileTap={{ scale: 0.98 }}
                   onClick={handleCopyLink}
                   disabled={!phoneNumber}
-                  className="sm:w-1/3 py-6 px-8 border-2 border-slate-200 text-[#25D366] hover:text-[#128C7E] rounded-[1.5rem] font-black flex items-center justify-center gap-3 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed text-lg"
+                  className="sm:w-1/3 py-4 px-8 border-2 border-slate-200 text-[#25D366] hover:text-[#128C7E] rounded-[1.25rem] font-black flex items-center justify-center gap-3 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed text-base"
                 >
-                  {copyStatus ? <><Check size={24} strokeWidth={3} /> {t.btnCopied}</> : <><Copy size={24} strokeWidth={3} /> {t.btnCopy}</>}
+                  {copyStatus ? <><Check size={20} strokeWidth={3} /> {t.btnCopied}</> : <><Copy size={20} strokeWidth={3} /> {t.btnCopy}</>}
                 </motion.button>
               </div>
             </div>
@@ -350,9 +350,27 @@ const App: React.FC = () => {
               </AnimatePresence>
             </div>
             <p className="text-sm font-bold text-slate-900 px-4">{t.qrMarketingNote}</p>
-            <button onClick={() => phoneNumber && window.open(`https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=${encodeURIComponent(waLink)}`, '_blank')} disabled={!phoneNumber} className="text-sm font-black text-[#25D366] hover:underline disabled:opacity-30">
+            <button
+              onClick={() => phoneNumber && window.open(`https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=${encodeURIComponent(waLink)}`, '_blank')}
+              disabled={!phoneNumber}
+              className="text-sm font-black text-[#25D366] hover:underline disabled:opacity-30"
+            >
               {t.qrDownload}
             </button>
+
+            {/* Promotional CTA */}
+            <div className="pt-6 mt-2 border-t border-black/5 w-full space-y-4">
+              <p className="text-sm font-bold text-slate-700">Design your personalized QR poster for Free</p>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setCurrentPage('business-qr-generator')}
+                className="w-full py-4 px-6 bg-gradient-to-r from-indigo-600 to-blue-600 text-white rounded-[1.25rem] font-black text-sm shadow-xl shadow-indigo-500/20 hover:shadow-indigo-500/40 transition-all flex items-center justify-center gap-2 group"
+              >
+                <span>Generate Now</span>
+                <Zap size={16} fill="white" className="group-hover:scale-125 transition-transform" />
+              </motion.button>
+            </div>
           </motion.div>
 
           <motion.div whileHover={{ y: -5 }} className="glass p-8 rounded-[2.5rem] flex flex-col shadow-xl">
@@ -410,9 +428,9 @@ const App: React.FC = () => {
         </div>
       </SectionWrapper>
 
-      <section className="mt-28 bg-black/5 p-12 md:p-20 rounded-[3.5rem] border border-black/5">
-        <h2 className="text-4xl font-black text-center mb-16 tracking-tight">Why Choose Circlebunch?</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+      <section className="mt-20 bg-black/5 p-10 md:p-14 rounded-[3rem] border border-black/5">
+        <h2 className="text-3xl font-black text-center mb-12 tracking-tight">Why Choose Circlebunch?</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           <WhyItem icon={<ZapOff />} title="No Junk Contacts" desc="Keep your phone book for friends and family, not one-time delivery calls." />
           <WhyItem icon={<ShieldCheck />} title="Privacy First" desc="We never track your activity or store the numbers you message." />
           <WhyItem icon={<Clock />} title="Save Time" desc="Skip the 'Save Contact' screen and get straight to the conversation." />
@@ -638,19 +656,19 @@ const App: React.FC = () => {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="mb-6 w-64 glass rounded-[2rem] shadow-3xl overflow-hidden py-3 border-2 border-white"
+              className="mb-4 w-64 glass rounded-[2rem] shadow-3xl overflow-hidden py-3 border-2 border-white max-h-[60vh] overflow-y-auto custom-scrollbar"
             >
               {LANGUAGES.map(lang => (
                 <button
                   key={lang.code}
                   onClick={() => handleLanguageSelect(lang.code as Locale)}
-                  className={`w-full flex items-center justify-between px-6 py-4 hover:bg-[#25D366]/10 transition-colors text-left text-base ${locale === lang.code ? 'text-emerald-500 font-black bg-emerald-500/5' : 'font-bold'}`}
+                  className={`w-full flex items-center justify-between px-6 py-2.5 hover:bg-[#25D366]/10 transition-colors text-left text-base ${locale === lang.code ? 'text-emerald-500 font-black bg-emerald-500/5' : 'font-bold'}`}
                 >
                   <div className="flex flex-col">
                     <span>{lang.native}</span>
-                    <span className="text-xs text-slate-600 font-medium">{lang.name}</span>
+                    <span className="text-[10px] text-slate-600 font-medium">{lang.name}</span>
                   </div>
-                  {locale === lang.code && <Check size={20} strokeWidth={3} className="text-emerald-500" />}
+                  {locale === lang.code && <Check size={18} strokeWidth={3} className="text-emerald-500" />}
                 </button>
               ))}
             </motion.div>
@@ -661,10 +679,10 @@ const App: React.FC = () => {
           whileHover={{ scale: 1.1, rotate: 5 }}
           whileTap={{ scale: 0.9 }}
           onClick={() => setIsLanguageOpen(!isLanguageOpen)}
-          className="w-20 h-20 rounded-[1.75rem] bg-indigo-600 hover:bg-indigo-700 text-white flex items-center justify-center shadow-3xl shadow-indigo-500/40 border-4 border-white transition-all relative"
+          className="w-16 h-16 rounded-[1.5rem] bg-indigo-600 hover:bg-indigo-700 text-white flex items-center justify-center shadow-3xl shadow-indigo-500/40 border-4 border-white transition-all relative"
         >
-          {isLanguageOpen ? <Check size={36} strokeWidth={3} /> : <Languages size={36} strokeWidth={3} />}
-          <span className="absolute -top-2 -right-2 flex h-8 w-12 items-center justify-center rounded-full bg-red-500 text-xs font-black text-white shadow-lg border-2 border-white uppercase">
+          {isLanguageOpen ? <Check size={30} strokeWidth={3} /> : <Languages size={30} strokeWidth={3} />}
+          <span className="absolute -top-1.5 -right-1.5 flex h-6 w-10 items-center justify-center rounded-full bg-red-500 text-[10px] font-black text-white shadow-lg border-2 border-white uppercase">
             {locale.split('-')[0]}
           </span>
         </motion.button>
@@ -680,9 +698,9 @@ const SectionWrapper: React.FC<{ title: string, children: React.ReactNode, maxWi
     whileInView="animate"
     viewport={{ once: true, margin: "-100px" }}
     variants={fadeInUp}
-    className={`mt-28 relative z-10 mx-auto ${maxWidth}`}
+    className={`mt-20 relative z-10 mx-auto ${maxWidth}`}
   >
-    <h2 className="text-4xl font-black text-center mb-16 tracking-tight">{title}</h2>
+    <h2 className="text-3xl font-black text-center mb-12 tracking-tight">{title}</h2>
     {children}
   </motion.section>
 );

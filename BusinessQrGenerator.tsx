@@ -812,14 +812,14 @@ Example for instruction "Call 9958929886":
           <Printer size={16} />
           Print-Ready QR + Copy Tool
         </motion.div>
-        <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-5 leading-[1.1]">
+        <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-5 leading-[1.1]">
           Create a Branded QR Code
           <br />
           <span className="bg-gradient-to-r from-emerald-500 to-teal-600 bg-clip-text text-transparent">
             for Your Business
           </span>
         </h1>
-        <p className="text-lg md:text-xl text-slate-500 font-medium max-w-2xl mx-auto">
+        <p className="text-base md:text-lg text-slate-500 font-medium max-w-2xl mx-auto">
           Free, fast, and print-ready — QR code + persuasive copywriting in one design block
         </p>
       </motion.section>
@@ -830,10 +830,10 @@ Example for instruction "Call 9958929886":
         <div className="lg:col-span-7">
           <div className="glass p-8 md:p-10 rounded-[2.5rem] shadow-2xl space-y-7">
             <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 bg-emerald-500/10 rounded-xl flex items-center justify-center">
-                <QrCode size={22} className="text-emerald-500" />
+              <div className="w-8 h-8 md:w-10 md:h-10 bg-emerald-500/10 rounded-xl flex items-center justify-center">
+                <QrCode size={20} className="text-emerald-500" />
               </div>
-              <h2 className="text-2xl font-black tracking-tight">QR Generator</h2>
+              <h2 className="text-xl font-black tracking-tight">QR Generator</h2>
             </div>
 
             {/* 1. QR Purpose */}
@@ -1087,18 +1087,18 @@ Example for instruction "Call 9958929886":
               whileTap={{ scale: 0.98 }}
               onClick={generateQr}
               disabled={isGenerating}
-              className="w-full py-5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white rounded-2xl font-black flex items-center justify-center gap-3 transition-all shadow-2xl shadow-emerald-500/25 disabled:opacity-60 disabled:cursor-not-allowed text-lg group btn-glow"
+              className="w-full py-4 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white rounded-2xl font-black flex items-center justify-center gap-3 transition-all shadow-xl shadow-emerald-500/25 disabled:opacity-60 disabled:cursor-not-allowed text-base group btn-glow"
             >
               {isGenerating ? (
                 <>
-                  <Loader2 size={24} className="animate-spin" />
+                  <Loader2 size={20} className="animate-spin" />
                   Generating...
                 </>
               ) : (
                 <>
-                  <Printer size={24} strokeWidth={2.5} />
+                  <Printer size={20} strokeWidth={2.5} />
                   Generate Print-Ready Design
-                  <Sparkles size={18} className="opacity-60 group-hover:opacity-100 transition-opacity" />
+                  <Sparkles size={16} className="opacity-60 group-hover:opacity-100 transition-opacity" />
                 </>
               )}
             </motion.button>
@@ -1109,10 +1109,10 @@ Example for instruction "Call 9958929886":
         <div className="lg:col-span-5">
           <div className="glass p-8 md:p-10 rounded-[2.5rem] shadow-2xl sticky top-28 space-y-6">
             <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 bg-teal-500/10 rounded-xl flex items-center justify-center">
-                <ImageIcon size={22} className="text-teal-500" />
+              <div className="w-8 h-8 md:w-10 md:h-10 bg-teal-500/10 rounded-xl flex items-center justify-center">
+                <ImageIcon size={20} className="text-teal-500" />
               </div>
-              <h2 className="text-2xl font-black tracking-tight">Design Preview</h2>
+              <h2 className="text-xl font-black tracking-tight">Design Preview</h2>
             </div>
 
             {/* Design Block Preview */}
@@ -1277,7 +1277,7 @@ Example for instruction "Call 9958929886":
               <Bell size={14} />
               Coming Soon
             </div>
-            <h2 className="text-3xl md:text-4xl font-black tracking-tight mb-4">
+            <h2 className="text-2xl md:text-3xl font-black tracking-tight mb-4">
               Unlock Smart QR Features
             </h2>
             <ul className="space-y-3 text-slate-600">
