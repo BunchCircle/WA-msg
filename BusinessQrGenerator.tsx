@@ -814,7 +814,7 @@ Example for instruction "Call 9958929886":
           Print-Ready QR + Copy Tool
         </motion.div>
         <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-5 leading-[1.1]">
-          Create a Branded QR Code
+          Create a Branded QR Posters
           <br />
           <span className="bg-gradient-to-r from-emerald-500 to-teal-600 bg-clip-text text-transparent">
             for Your Business
