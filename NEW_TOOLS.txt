@@ -1,0 +1,27 @@
+Technical Implementation
+Cryptography: Use standard Web Crypto API (AES-GCM) for encryption.
+Storage: Since we are "no-backend", the encrypted payload will be stored in a URL Fragment (the part after the #).
+Benefit: Fragments are never sent to the server, ensuring true end-to-end privacy for anyone hosting the site.
+Destruction: For a truly "read-once" feature without a database, we will provide a "Burn after Reading" mode where the recipient must acknowledge the destruction.
+Proposed Changes
+[Circlebunch App]
+[MODIFY] 
+
+App.tsx
+Add routing for /signature-builder and /secure-note.
+Add navigation links in the header/footer.
+[NEW] 
+
+SignatureBuilder.tsx
+Main logic for the signature tool.
+[NEW] 
+
+SecureNote.tsx
+Main logic for the encryption and note sharing tool.
+Verification Plan
+Automated Tests
+Verification of URL fragment encryption/decryption.
+Validation that HTML signature copying works across browsers.
+Manual Verification
+Test signature pasting in Gmail and Outlook.
+Verify that a "Secure Note" link created on one device can be decrypted on another.
